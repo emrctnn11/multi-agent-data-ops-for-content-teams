@@ -3,10 +3,24 @@ from fastapi import FastAPI, HTTPException
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from supabase import create_client, Client
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI(title="Multi-Agent Content Ops")
+
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_ANON_KEY")
