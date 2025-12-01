@@ -131,7 +131,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12 bg-gray-50 text-black">
-      {/* Header */}
       <div className="z-10 max-w-6xl w-full flex flex-col items-center justify-between font-mono text-sm lg:flex-row mb-8">
         <h1 className="text-4xl font-bold text-blue-600">
           AI Content Ops Agent

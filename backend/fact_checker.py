@@ -25,7 +25,7 @@ def fact_checker_node(state: AgentState):
     research_data = state.get("research_data")
     revision_count = state.get("revision_count", 0)
 
-    if revision_count >= 1:
+    if revision_count >= 3:
         print("Maximum revisions reached. Skipping Fact Checker.")
         return {"review_status": "approve", "critique_comments": "None"}
 
