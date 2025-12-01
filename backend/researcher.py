@@ -4,8 +4,9 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from dotenv import load_dotenv
 
 from state import AgentState
+from config import OPENAI_API_KEY
 
-llm = ChatOpenAI(model="gpt-5", temperature=0)
+llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o", temperature=0)
 
 
 def researcher_node(state: AgentState):

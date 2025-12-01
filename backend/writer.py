@@ -4,12 +4,14 @@ from dotenv import load_dotenv
 
 from state import AgentState
 
+from config import OPENAI_API_KEY
+
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-5", temperature=0.7)
+llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o", temperature=0)
 
 
-def writed_node(state: AgentState):
+def writer_node(state: AgentState):
     """
     Writer agent that creates a draft based on the PRD text and research data.
     """
@@ -17,7 +19,6 @@ def writed_node(state: AgentState):
     print("--- Writer Agent Started ---")
 
     prd_text = state.get["prd_text"]
-
 
     research_data = state.get["research_data"]
 
