@@ -9,7 +9,7 @@ from config import GEMINI_API_KEY
 load_dotenv()
 
 llm = ChatGoogleGenerativeAI(
-    google_api_key=GEMINI_API_KEY, model="gemini-2.5-pro", temperature=0
+    google_api_key=GEMINI_API_KEY, model="gemini-2.0-flash-lite", temperature=0
 )
 
 
