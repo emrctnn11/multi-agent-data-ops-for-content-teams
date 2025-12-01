@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from supabase import create_client, Client
 from graph import app_graph
+import traceback
 
 app = FastAPI(title="Multi-Agent Content Ops")
 origins = [
@@ -65,6 +66,9 @@ async def start_workflow(request: PRDRequest):
 
         final_state = app_graph.invoke(inputs)
 
+        print("DEBUG: Final State Anahtarları:", final_state.keys())
+        print("DEBUG: Final Post Değeri:", final_state.get("final_post"))
+
         final_post = final_state.get("final_post")
         print(">>> Workflow completed. Storing final output...")
 
@@ -84,7 +88,9 @@ async def start_workflow(request: PRDRequest):
         }
 
     except Exception as e:
-        print(f"!!! HATA OLUŞTU: {e}")
+        print("!!! HATA OLUŞTU !!!")
+        traceback.print_exc()  # <--- BU SATIR HATANIN KONUMUNU GÖSTERECEK
+
         if "run_id" in locals():
             supabase.table("workflow_runs").update({"status": "failed"}).eq(
                 "id", run_id

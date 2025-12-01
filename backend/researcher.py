@@ -1,12 +1,17 @@
 import os
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from dotenv import load_dotenv
 
 from state import AgentState
-from config import OPENAI_API_KEY
+from config import GEMINI_API_KEY
 
-llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o", temperature=0)
+llm = ChatGoogleGenerativeAI(
+    google_api_key=GEMINI_API_KEY, 
+    model="gemini-2.5-pro", 
+    temperature=0
+)
+
 
 
 def researcher_node(state: AgentState):
@@ -16,7 +21,7 @@ def researcher_node(state: AgentState):
 
     print("--- [1/4] Research Agent Started ---")
 
-    prd_text = state("prd_text")
+    prd_text = state["prd_text"]
 
     system_prompt = "You are a diligent researcher tasked with gathering relevant information based on the provided Product Requirements Document (PRD). Your goal is to collect accurate and comprehensive data that will inform the content creation process."
 

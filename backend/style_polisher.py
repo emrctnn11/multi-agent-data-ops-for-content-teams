@@ -1,14 +1,16 @@
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from dotenv import load_dotenv
 
 from state import AgentState
 
-from config import OPENAI_API_KEY
+from config import GEMINI_API_KEY
 
 load_dotenv()
 
-llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o", temperature=0)
+llm = ChatGoogleGenerativeAI(
+    google_api_key=GEMINI_API_KEY, model="gemini-2.5-pro", temperature=0
+)
 
 
 def style_polisher_node(state: AgentState):
@@ -43,5 +45,8 @@ def style_polisher_node(state: AgentState):
 
     response = llm.invoke(messages)
 
+    print(f"DEBUG: Gemini Cevap Uzunluğu: {len(response.content)}")
+    print(f"DEBUG: Gemini Cevap İçeriği (İlk 50 karakter): {response.content[:50]}...")
+
     print("--- [4/4] Style Polisher Agent Completed ---")
-    return {"final_draft": response.content}
+    return {"final_post": response.content}

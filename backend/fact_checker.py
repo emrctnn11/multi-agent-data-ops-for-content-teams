@@ -1,13 +1,17 @@
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from state import AgentState
 from dotenv import load_dotenv
 
-from config import OPENAI_API_KEY
+from config import GEMINI_API_KEY
 
 load_dotenv()
 
-llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o", temperature=0)
+llm = ChatGoogleGenerativeAI(
+    google_api_key=GEMINI_API_KEY, 
+    model="gemini-2.5-pro", 
+    temperature=0
+)
 
 
 def fact_checker_node(state: AgentState):
@@ -21,7 +25,7 @@ def fact_checker_node(state: AgentState):
     research_data = state.get("research_data")
     revision_count = state.get("revision_count", 0)
 
-    if revision_count >= 3:
+    if revision_count >= 1:
         print("Maximum revisions reached. Skipping Fact Checker.")
         return {"review_status": "approve", "critique_comments": "None"}
 
